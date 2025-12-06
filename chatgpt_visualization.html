@@ -21,16 +21,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-# Employee data
+# Employee data (first 5 rows shown, full dataset has 100 employees)
+# Sample: employee_id,department,region,performance_score,years_experience,satisfaction_rating
+# EMP001,IT,Africa,80.2,2,4\n# EMP002,Finance,Asia Pacific,66.44,5,3.2\n# EMP003,R&D,Europe,81.14,15,3.6\n# EMP004,Sales,Middle East,79.79,5,3.6\n# EMP005,HR,Africa,70.49,12,3.8
+
+# Load full employee dataset
 data = {
-    'department': ['Sales', 'Marketing', 'Operations', 'HR', 'IT', 'Finance', 'R&D'] * 14 + ['Sales', 'Marketing'],
-    'performance_score': [75, 82, 68, 91, 77, 85, 79, 88, 72, 95, 81, 76, 89, 84, 
-                          73, 90, 78, 86, 74, 92, 80, 87, 71, 93, 83, 77, 88, 85,
-                          76, 91, 79, 84, 75, 89, 82, 86, 73, 94, 81, 78, 87, 83,
-                          77, 90, 80, 85, 74, 92, 79, 88, 76, 91, 82, 84, 75, 89,
-                          81, 86, 73, 93, 78, 87, 77, 90, 80, 85, 74, 92, 79, 88,
-                          76, 91, 82, 84, 75, 89, 81, 86, 73, 94, 78, 87, 77, 90,
-                          80, 85, 74, 92, 79, 88, 76, 91, 82, 84, 75, 89, 81, 86]
+    'employee_id': ['EMP001', 'EMP002', 'EMP003', 'EMP004', 'EMP005', 'EMP006', 'EMP007', 'EMP008', 'EMP009', 'EMP010', 'EMP011', 'EMP012', 'EMP013', 'EMP014', 'EMP015', 'EMP016', 'EMP017', 'EMP018', 'EMP019', 'EMP020', 'EMP021', 'EMP022', 'EMP023', 'EMP024', 'EMP025', 'EMP026', 'EMP027', 'EMP028', 'EMP029', 'EMP030', 'EMP031', 'EMP032', 'EMP033', 'EMP034', 'EMP035', 'EMP036', 'EMP037', 'EMP038', 'EMP039', 'EMP040', 'EMP041', 'EMP042', 'EMP043', 'EMP044', 'EMP045', 'EMP046', 'EMP047', 'EMP048', 'EMP049', 'EMP050', 'EMP051', 'EMP052', 'EMP053', 'EMP054', 'EMP055', 'EMP056', 'EMP057', 'EMP058', 'EMP059', 'EMP060', 'EMP061', 'EMP062', 'EMP063', 'EMP064', 'EMP065', 'EMP066', 'EMP067', 'EMP068', 'EMP069', 'EMP070', 'EMP071', 'EMP072', 'EMP073', 'EMP074', 'EMP075', 'EMP076', 'EMP077', 'EMP078', 'EMP079', 'EMP080', 'EMP081', 'EMP082', 'EMP083', 'EMP084', 'EMP085', 'EMP086', 'EMP087', 'EMP088', 'EMP089', 'EMP090', 'EMP091', 'EMP092', 'EMP093', 'EMP094', 'EMP095', 'EMP096', 'EMP097', 'EMP098', 'EMP099', 'EMP100'],
+    'department': ['IT', 'Finance', 'R&D', 'Sales', 'HR', 'IT', 'Sales', 'Finance', 'Sales', 'Sales', 'Sales', 'IT', 'Finance', 'Sales', 'R&D', 'IT', 'HR', 'HR', 'R&D', 'R&D', 'Sales', 'Finance', 'Sales', 'Sales', 'Operations', 'HR', 'R&D', 'IT', 'Finance', 'IT', 'Sales', 'HR', 'R&D', 'HR', 'Operations', 'HR', 'Sales', 'Marketing', 'R&D', 'R&D', 'IT', 'HR', 'R&D', 'Operations', 'R&D', 'R&D', 'HR', 'HR', 'R&D', 'Marketing', 'Marketing', 'Sales', 'Finance', 'Finance', 'R&D', 'Finance', 'Marketing', 'R&D', 'Finance', 'IT', 'Sales', 'Sales', 'R&D', 'IT', 'HR', 'Operations', 'HR', 'HR', 'R&D', 'HR', 'HR', 'HR', 'R&D', 'R&D', 'Marketing', 'Operations', 'HR', 'IT', 'Sales', 'IT', 'IT', 'R&D', 'Finance', 'HR', 'Finance', 'Marketing', 'IT', 'IT', 'Marketing', 'Operations', 'Operations', 'IT', 'R&D', 'IT', 'Marketing', 'Finance', 'IT', 'HR', 'Marketing', 'Operations'],
+    'region': ['Africa', 'Asia Pacific', 'Europe', 'Middle East', 'Africa', 'Europe', 'North America', 'Europe', 'Middle East', 'Asia Pacific', 'Middle East', 'North America', 'North America', 'Africa', 'Africa', 'Africa', 'Africa', 'Asia Pacific', 'Africa', 'Asia Pacific', 'Europe', 'North America', 'Middle East', 'Middle East', 'North America', 'North America', 'Asia Pacific', 'Latin America', 'North America', 'Latin America', 'Africa', 'Middle East', 'Middle East', 'Europe', 'Middle East', 'North America', 'Europe', 'North America', 'Latin America', 'North America', 'Latin America', 'Middle East', 'Latin America', 'Middle East', 'Africa', 'Latin America', 'Middle East', 'North America', 'Latin America', 'Middle East', 'North America', 'Europe', 'Middle East', 'Latin America', 'Latin America', 'Europe', 'Latin America', 'Latin America', 'Asia Pacific', 'Middle East', 'Asia Pacific', 'Latin America', 'North America', 'Latin America', 'Middle East', 'Europe', 'Asia Pacific', 'Europe', 'Africa', 'Europe', 'Middle East', 'Latin America', 'Middle East', 'Asia Pacific', 'Latin America', 'Africa', 'Africa', 'Middle East', 'Asia Pacific', 'Africa', 'Middle East', 'Africa', 'Latin America', 'North America', 'North America', 'Asia Pacific', 'Europe', 'Middle East', 'Africa', 'Middle East', 'Europe', 'Europe', 'Middle East', 'North America', 'Africa', 'Africa', 'Latin America', 'Europe', 'Asia Pacific', 'Latin America'],
+    'performance_score': [80.2, 66.44, 81.14, 79.79, 70.49, 91.85, 70.53, 86.52, 78.66, 78.25, 61.55, 66.29, 60.56, 70.12, 88.36, 91.8, 90.49, 66.78, 78.33, 78.61, 91.75, 63.84, 73.69, 64.08, 72.97, 81.05, 82.33, 81.42, 75.31, 87.35, 68.78, 62.72, 67.16, 81.35, 67.77, 91.42, 78.29, 70.48, 62.51, 94.93, 94, 75.21, 62.89, 76.15, 80.13, 84.84, 78.42, 60.15, 60.06, 76.36, 73.86, 68.48, 87.61, 88.77, 81.42, 93.61, 92.85, 93.45, 83.77, 61.63, 90.08, 64.94, 63.45, 73.08, 74.23, 91.27, 62.48, 87.94, 80.87, 90.13, 87.28, 63.07, 67, 85.02, 61.41, 79.19, 61.33, 72.03, 77.31, 73.55, 82.03, 62.1, 80.44, 65.41, 94.14, 72.68, 85.29, 89.26, 87.5, 87.27, 71.61, 81.23, 94.11, 74.22, 91.3, 61.66, 68.81, 82.72, 83.66, 92.69],
+    'years_experience': [2, 5, 15, 5, 12, 4, 6, 2, 7, 12, 3, 3, 11, 6, 11, 15, 7, 4, 13, 15, 15, 14, 5, 15, 14, 15, 9, 2, 9, 4, 15, 15, 3, 7, 5, 14, 2, 8, 1, 3, 4, 14, 13, 15, 12, 12, 9, 10, 5, 14, 6, 7, 7, 6, 6, 15, 7, 6, 8, 2, 12, 7, 2, 11, 3, 1, 5, 13, 11, 1, 4, 4, 9, 5, 10, 4, 9, 11, 1, 8, 6, 5, 3, 7, 10, 5, 12, 2, 10, 4, 8, 14, 10, 3, 7, 3, 4, 2, 11, 4],
+    'satisfaction_rating': [4, 3.2, 3.6, 3.6, 3.8, 4.1, 3.4, 4.7, 4.9, 4, 4.7, 4.6, 3.1, 4.4, 3.4, 3.9, 4.8, 3.4, 3, 3.4, 4.8, 4.4, 3.9, 4.1, 4.7, 4.3, 4.4, 4.9, 4.6, 4.9, 3.8, 4.4, 3.6, 4.5, 3.1, 4.5, 5, 4.8, 4.2, 3.8, 4.7, 4.2, 4.4, 4.6, 3.3, 3.8, 3.1, 3, 3.5, 4, 3.2, 4.2, 3.6, 4.9, 4.3, 4.8, 3.4, 4.3, 4.5, 4.1, 3.6, 3.1, 3.8, 4, 4.7, 3.7, 3.7, 3.8, 3.3, 4, 3.2, 4.6, 4.1, 4.3, 3.5, 4, 3.3, 4, 5, 3.6, 3.8, 3.1, 3.3, 3.4, 4.2, 4.2, 4.6, 4.5, 3.5, 4.8, 4.4, 5, 4.9, 4.1, 4.4, 4.8, 3, 4.4, 4, 3.6]
 }
 
 df = pd.DataFrame(data)
@@ -53,7 +55,7 @@ plt.show()
 
     <div class="output">
         <h2>Output</h2>
-        <p><strong>Frequency count for HR department: 14</strong></p>
+        <p><strong>Frequency count for HR department: 19</strong></p>
     </div>
     
     <h2>Histogram Visualization</h2>
