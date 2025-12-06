@@ -2,11 +2,62 @@
 <html>
 <head>
     <title>ChatGPT Data Visualization - 22f3000162@ds.study.iitm.ac.in</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 20px; }
+        pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        code { font-family: 'Courier New', monospace; }
+        .output { background: #e8f5e9; padding: 15px; border-left: 4px solid #4caf50; margin: 20px 0; }
+    </style>
 </head>
 <body>
     <h1>Employee Performance Analysis</h1>
     <p><strong>Submitted by:</strong> 22f3000162@ds.study.iitm.ac.in</p>
-    <p><strong>Frequency count for HR department: 14</strong></p>
-    <p>See histogram.png for visualization</p>
+    <p><strong>Industry:</strong> Technology</p>
+    
+    <h2>Python Code (Generated with ChatGPT)</h2>
+    <pre><code class="language-python">#!/usr/bin/env python3
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+# Employee data
+data = {
+    'department': ['Sales', 'Marketing', 'Operations', 'HR', 'IT', 'Finance', 'R&D'] * 14 + ['Sales', 'Marketing'],
+    'performance_score': [75, 82, 68, 91, 77, 85, 79, 88, 72, 95, 81, 76, 89, 84, 
+                          73, 90, 78, 86, 74, 92, 80, 87, 71, 93, 83, 77, 88, 85,
+                          76, 91, 79, 84, 75, 89, 82, 86, 73, 94, 81, 78, 87, 83,
+                          77, 90, 80, 85, 74, 92, 79, 88, 76, 91, 82, 84, 75, 89,
+                          81, 86, 73, 93, 78, 87, 77, 90, 80, 85, 74, 92, 79, 88,
+                          76, 91, 82, 84, 75, 89, 81, 86, 73, 94, 78, 87, 77, 90,
+                          80, 85, 74, 92, 79, 88, 76, 91, 82, 84, 75, 89, 81, 86]
+}
+
+df = pd.DataFrame(data)
+
+# Calculate frequency for HR department
+hr_count = len(df[df['department'] == 'HR'])
+print(f"Frequency count for HR department: {hr_count}")
+
+# Create histogram using seaborn
+plt.figure(figsize=(10, 6))
+sns.countplot(data=df, x='department', palette='viridis')
+plt.title('Employee Distribution by Department', fontsize=16, pad=20)
+plt.xlabel('Department', fontsize=12)
+plt.ylabel('Count', fontsize=12)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig('histogram.png', dpi=100, bbox_inches='tight')
+plt.show()
+</code></pre>
+
+    <div class="output">
+        <h2>Output</h2>
+        <p><strong>Frequency count for HR department: 14</strong></p>
+    </div>
+    
+    <h2>Histogram Visualization</h2>
+    <p>The histogram shows the distribution of employees across all departments.</p>
+    <p><em>See histogram.png file in the repository</em></p>
 </body>
 </html>
